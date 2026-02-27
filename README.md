@@ -1,70 +1,157 @@
-# Getting Started with Create React App
+Anvaya CRM
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full‑stack Customer Relationship Management (CRM) app to manage leads, sales agents, comments, tags and simple pipeline reports.
+Built with a React frontend, Express/Node backend, MongoDB (Mongoose).
+Quick Start
 
-## Available Scripts
+git clone https://github.com/<your-username>/<your-repo>.git
+cd MajorProject2
+# Backend
+cd backend
+npm install
+npm start
+# Frontend (new terminal)
+cd ../frontend
+npm install
+npm start
 
-In the project directory, you can run:
+Server defaults to port 3000.
 
-### `npm start`
+Technologies
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+React
+React Router
+Node.js
+Express
+MongoDB (Mongoose)
+Fetch API (used in frontend)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Features
 
-### `npm test`
+Dashboard
+- Basic pipeline reports: leads closed in the last week, total leads in pipeline
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Leads
+- Create, list, update, and delete leads
+- Filter leads by salesAgent, status, tags, source, and _id
+- Search leads by name (fuzzy search)
 
-### `npm run build`
+Sales Agents
+- Create, list, get and delete sales agents
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Comments
+- Add and list comments on a lead
+- Delete comments
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Tags
+- Create and list tags
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+API Reference
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+GET /leads
+- List leads with optional query params: _id, salesAgent, status, tags, source
+- Valid status values: "New", "Contacted", "Qualified", "Proposal Sent", "Closed"
+- Sample Request:
+  GET /leads?status=New&salesAgent=605c...abc
+- Sample Response:
+  { "Leads": [ { "_id", "name", "source", "salesAgent", "status", ... }, ... ] }
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+GET /leads/search/:searchTerm
+- Fuzzy search leads by name (constructs regex from term)
+- Sample Request:
+  GET /leads/search/john
+- Sample Response:
+  { "Leads": [ { "_id", "name": "John Doe", ... }, ... ] }
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+POST /leads
+- Create a new lead
+- Required fields: name, source
+- Optional: salesAgent (must be a valid ObjectId), tags, priority, timeToClose
+- Sample Request body:
+  { "name": "Acme Corp", "source": "Website", "salesAgent": "<agentId>" }
+- Sample Response:
+  { "Lead": { "_id", "name", "source", "salesAgent", ... } }
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+PUT /leads/:id
+- Update a lead by id
+- If status is set to "Closed", provider sets closedAt = now
+- Sample Request:
+  PUT /leads/605c...abc
+  Body: { "status": "Closed", "notes": "Deal signed" }
+- Sample Response:
+  { "Lead": { "_id", "605c...abc", "status": "Closed", "closedAt": "...", ... } }
 
-## Learn More
+DELETE /leads/:id
+- Delete a lead by id
+- Sample Request:
+  DELETE /leads/605c...abc
+- Sample Response:
+  { "message": "Lead deleted successfully" }
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+POST /leads/:id/comments
+- Add a comment to a lead
+- Body: { "commentText": "...", "author": "Agent Name" }
+- Sample Response:
+  { "_id", "lead", "commentText", "author", "createdAt" }
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+GET /leads/:id/comments
+- List comments for a lead
+- Sample Response:
+  { "comments": [ { "_id", "commentText", "author", "createdAt", ... }, ... ] }
 
-### Code Splitting
+DELETE /comments/:commentId
+- Delete a comment by id
+- Sample Response:
+  { "Comment": { "_id", "commentId", "commentText", ... } }
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+GET /agents
+- List all sales agents
+- Sample Response:
+  { "agents": [ { "_id", "name", "email" }, ... ] }
 
-### Analyzing the Bundle Size
+POST /agents
+- Create a sales agent
+- Body: { "name": "Agent Name", "email": "agent@example.com" }
+- Sample Response:
+  { "agent": { "_id", "name", "email" } }
+- Duplicate email returns 409 error.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+GET /agents/:id
+- Get a sales agent by id
+- Sample Response:
+  { "_id", "name", "email", ... }
 
-### Making a Progressive Web App
+DELETE /agents/:id
+- Delete a sales agent by id
+- Sample Response:
+  { /* deleted agent doc */ }
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+POST /tag
+- Create a tag
+- Body: { "name": "High Priority" }
+- Sample Response:
+  { "tag": { "_id", "name" } }
 
-### Advanced Configuration
+GET /tag
+- List all tags
+- Sample Response:
+  { "tag": [ { "_id", "name" }, ... ] }
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+GET /report/last-week
+- Returns leads closed in the last 7 days
+- Sample Response:
+  [ { "id": "...", "name": "...", "salesAgent": "...", "closedAt": "..." }, ... ]
 
-### Deployment
+GET /report/pipeline
+- Returns a count of leads not in "Closed" status
+- Sample Response:
+  { "totalPipelineLeads": 42 }
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Environment
 
-### `npm run build` fails to minify
+Frontend (.env)
+REACT_APP_API_URL=https://crm-backend-wlhu.vercel.app
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Backend (.env)
+MONGODB=<your-mongodb-connection-string>
