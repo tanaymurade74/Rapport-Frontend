@@ -37,10 +37,6 @@ npm start         # runs on http://localhost:3000 (CRA dev server)
 * React Toastify
 * Create React App (react-scripts)
 
-## Demo Video
-
-Watch a walkthrough of the major features: _add your video link here (Loom / YouTube)_
-
 ## Features
 
 **Home / Dashboard**
