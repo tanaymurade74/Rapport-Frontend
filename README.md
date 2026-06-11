@@ -1,54 +1,12 @@
-# Anvaya CRM – Frontend
+# Rapport CRM – Frontend
 
-A full-stack Customer Relationship Management application to manage leads, sales agents, comments, tags, and pipeline reports.
+A Customer Relationship Management dashboard to manage leads, sales agents, comments, tags, and pipeline reports. Built with React, React Router, Bootstrap, and Chart.js, backed by a REST API.
 
-## Live Link
+## Live Demo
 
-https://crm-frontend-9o5d.vercel.app/
+[Live Demo](https://crm-frontend-9o5d.vercel.app/)
 
-
-## Tech Stack
-
-| Layer        | Technology                          |
-|--------------|-------------------------------------|
-| UI Library   | React 19                            |
-| Routing      | React Router DOM v7                 |
-| Styling      | Bootstrap 5                         |
-| Charts       | Chart.js + react-chartjs-2          |
-| Notifications| React Toastify                      |
-| HTTP         | Fetch API   
-| State        | React Context API                   |
-
----
-
-## Features
-
-- **Dashboard** – Home page with quick navigation to all modules.
-- **Lead Management** – Create, view, update, delete, filter, and search leads.
-- **Sales Agents** – List and manage sales team members.
-- **Reports** – Visualize pipeline data and weekly closed leads with charts.
-- **Comments & Tags** – Add comments to leads and organize with tags.
-- **Toast Notifications** – Real-time feedback on user actions.
-- **Responsive UI** – Mobile-friendly layout using Bootstrap grid.
-
----
-
-## Pages / Routes
-
-| Path               | Component         | Description                        |
-|--------------------|-------------------|------------------------------------|
-| `/`                | HomePage          | Landing page with module cards     |
-| `/leadList`        | LeadList          | View all leads with filters        |
-| `/addLead`         | AddLead           | Create a new lead                  |
-| `/lead/:leadId`    | LeadManagement    | View/edit a single lead's details  |
-| `/reports`         | Reports           | Pipeline and performance charts    |
-| `/salesAgentList`  | SalesAgentList    | Manage sales agents                |
-| `/settings`        | Settings          | Application settings               |
-
----
-
-
-### Installation
+## Quick Start
 
 ```bash
 git clone https://github.com/tanaymurade74/CRM-Frontend.git
@@ -56,74 +14,96 @@ cd CRM-Frontend
 npm install
 ```
 
-### Environment Variables
-
-Create a `.env` file in the project root:
+Create a `.env` file in the project root, pointing at the backend API:
 
 ```env
 REACT_APP_API_URL=https://crm-backend-wlhu.vercel.app
 ```
 
-> Replace with `http://localhost:3000` if running the backend locally.
+> Use `http://localhost:3000` instead if you're running the [backend](https://github.com/tanaymurade74/CRMBackend) locally.
 
-### Run the App
+Then start the app:
 
 ```bash
-npm start
+npm start         # runs on http://localhost:3000 (CRA dev server)
 ```
+
+## Technologies
+
+* React 19
+* React Router DOM 7
+* Bootstrap 5
+* Chart.js + react-chartjs-2
+* React Toastify
+* Create React App (react-scripts)
+
+## Demo Video
+
+Watch a walkthrough of the major features: _add your video link here (Loom / YouTube)_
+
+## Features
+
+**Home / Dashboard**
+
+* Landing page with quick navigation to all modules
+
+**Leads**
+
+* View all leads with real-time search by name
+* Filter leads and add new ones through a form
+* View a single lead's full details
+* Edit lead title, status, tags, and other fields
+
+**Comments & Tags**
+
+* Add comments to a lead and view the comment history
+* Organize leads with tags
+
+**Sales Agents**
+
+* List, add, and delete sales team members
+
+**Reports**
+
+* Visualize pipeline data and leads closed in the last week with charts
+
+**General**
+
+* Toast notifications for real-time feedback on actions
+* Responsive, mobile-friendly layout using the Bootstrap grid
+
+## Routes
+
+| Path              | Component      | Description                       |
+|-------------------|----------------|-----------------------------------|
+| `/`               | HomePage       | Landing page with module cards    |
+| `/leadList`       | LeadList       | View all leads with search        |
+| `/addLead`        | AddLead        | Create a new lead                 |
+| `/lead/:leadId`   | LeadManagement | View/edit a single lead           |
+| `/reports`        | Reports        | Pipeline and performance charts   |
+| `/salesAgentList` | SalesAgentList | Manage sales agents               |
+| `/settings`       | Settings       | Application settings              |
+
 ## Project Structure
 
 ```
 src/
-├── components/         # Page-level components
-│   ├── AddLead.js
-│   ├── HomePage.js
-│   ├── LeadList.js
-│   ├── LeadManagement.js
-│   ├── Reports.js
-│   ├── SalesAgentList.js
-│   └── Settings.js
-├── constants/          # Shared layout components
-│   ├── Footer.js
-│   ├── Header.js
-│   └── HeaderWithoutSearch.js
-├── contexts/           # React Context providers
-│   ├── AddLeadContext.js
-│   ├── LeadListContext.js
-│   ├── LeadManagementContext.js
-│   ├── ReportsContext.js
-│   ├── SalesAgentListContext.js
-│   └── SettingsContext.js
-├── useFetch.js         # Custom hook for data fetching
-├── App.js              # Root component with routing
-└── index.js            # Entry point
+├── components/      # Page-level components (HomePage, LeadList, AddLead, etc.)
+├── constants/       # Shared layout (Header, Footer)
+├── contexts/        # React Context providers, one per feature
+├── useFetch.js      # Custom data-fetching hook
+├── App.js           # Root component with routing
+└── index.js         # Entry point
 ```
-
----
 
 ## Backend
 
-The backend is a REST API built with Express.js and MongoDB (Mongoose).
+This app consumes a separate Express/MongoDB REST API.
 
-Repository: [https://github.com/tanaymurade74/CRMBackend](https://github.com/tanaymurade74/CRMBackend)
+* **Backend repository:** [https://github.com/tanaymurade74/CRMBackend](https://github.com/tanaymurade74/CRMBackend)
 
-### Key API Endpoints
+The frontend reads the API base URL from the `REACT_APP_API_URL` environment variable and calls endpoints such as `/leads`, `/agents`, `/tag`, and `/report/*`.
 
-| Method | Endpoint                  | Description                     |
-|--------|---------------------------|---------------------------------|
-| GET    | `/leads`                  | List/filter leads               |
-| GET    | `/leads/search/:term`     | Fuzzy search leads by name      |
-| POST   | `/leads`                  | Create a lead                   |
-| PUT    | `/leads/:id`              | Update a lead                   |
-| DELETE | `/leads/:id`              | Delete a lead                   |
-| POST   | `/leads/:id/comments`     | Add comment to a lead           |
-| GET    | `/leads/:id/comments`     | List comments for a lead        |
-| DELETE | `/comments/:commentId`    | Delete a comment                |
-| GET    | `/agents`                 | List all sales agents           |
-| POST   | `/agents`                 | Create a sales agent            |
-| GET    | `/agents/:id`             | Get agent by ID                 |
-| DELETE | `/agents/:id`             | Delete a sales agent            |
-| POST   | `/tag`                    | Create a tag                    |
-| GET    | `/tag`                    | List all tags                   |
-| GET    | `/report/last-week`       | Leads closed in the last 7 days |
-| GET    | `/report/pipeline`        | Total leads in pipeline         |
+## Contact
+
+Found a bug or have a feature request? Open an issue on the repo, or reach out at _your-email@example.com_ (replace with your contact).
