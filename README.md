@@ -103,7 +103,3 @@ This app consumes a separate Express/MongoDB REST API.
 * **Backend repository:** [https://github.com/tanaymurade74/CRMBackend](https://github.com/tanaymurade74/CRMBackend)
 
 The frontend reads the API base URL from the `REACT_APP_API_URL` environment variable and calls endpoints such as `/leads`, `/agents`, `/tag`, and `/report/*`.
-
-## Contact
-
-Found a bug or have a feature request? Open an issue on the repo, or reach out at _your-email@example.com_ (replace with your contact).
