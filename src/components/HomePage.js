@@ -9,7 +9,7 @@ const HomePage = () => {
     <HeaderWithoutSearch/>
     <main className="container py-5 flex-grow-1">
       <div className="text-center mb-5">
-        <h1 className="display-4 fw-bold">Anvaya CRM</h1>
+        <h1 className="display-4 fw-bold">Rapport CRM</h1>
         <p className="lead text-muted">Select a module to begin</p>
         <hr className="w-25 mx-auto" />
       </div>
