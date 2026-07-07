@@ -1,9 +1,15 @@
 import { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 const Header = ({search, setSearch}) => {
 
+  const navigate = useNavigate();
     const [localSearch, setLocalSearch] = useState(search);
+
+    const handleLogout = () => {
+      localStorage.removeItem("token");
+      navigate("/")
+    }
 
    useEffect(( )=> {
     const debounceSearch = setTimeout(() => {
@@ -63,6 +69,13 @@ const Header = ({search, setSearch}) => {
                 value={localSearch} 
                 onChange={(e) =>setLocalSearch(e.target.value) }
               />
+              <button
+                className="btn btn-outline-danger"
+                type="button"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
             </div>
             
 

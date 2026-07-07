@@ -1,6 +1,14 @@
 
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 const HeaderWithoutSearch = () => {
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  }
+ 
 
    return  <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -44,6 +52,16 @@ const HeaderWithoutSearch = () => {
               </li>
              
             </ul>
+
+            <div className="d-flex justify-content-end">
+              <button
+                className="btn btn-outline-danger"
+                type="button"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </div>
 
           </div>
           
