@@ -18,7 +18,7 @@ import { AddLeadProvider } from "./contexts/AddLeadContext.js";
 import { SalesAgentListProvider } from "./contexts/SalesAgentListContext.js";
 import { ReportsProvider } from "./contexts/ReportsContext.js";
 import { SettingsProvider } from "./contexts/SettingsContext.js";
-import Login from "./components/Login.jsx";                 
+import Login from "./components/Login.js";                 
 import OAuthSuccess from "./components/OAuthSuccess.js";     
 
 function App() {
