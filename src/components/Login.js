@@ -1,4 +1,17 @@
+
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 const Login = () => {
+
+const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/home");
+    }
+  }, [navigate]);
+
   const handleLogin = () => {
     window.location.href = `${process.env.REACT_APP_API_URL}/auth/login`;
   };

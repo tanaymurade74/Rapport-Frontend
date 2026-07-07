@@ -8,9 +8,9 @@ const OAuthSuccess = () => {
     const token = new URLSearchParams(window.location.search).get("token");
     if (token) {
       localStorage.setItem("token", token);
-      navigate("/");
+      navigate("/home");
     } else {
-      navigate("/login");
+      navigate("/");
     }
   }, [navigate]);
 

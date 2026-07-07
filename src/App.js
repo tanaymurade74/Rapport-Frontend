@@ -37,9 +37,9 @@ function App() {
             theme="light"
           />
       <Routes>
-        <Route path="/login" element={<Login />} />                   
+        <Route path="/" element={<Login />} />                   
         <Route path="/oauth-success" element={<OAuthSuccess />} />     
-        <Route path="/" element={<HomePage />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path = "/leadList" element = {
           <LeadListProvider>
           <LeadList/>

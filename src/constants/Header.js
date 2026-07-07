@@ -16,7 +16,7 @@ const Header = ({search, setSearch}) => {
     <div >
       <nav className="navbar navbar-expand-lg ">
         <div className="container-fluid">
-          <NavLink className="navbar-brand text-danger fst-italic" to="/">
+          <NavLink className="navbar-brand text-danger fst-italic" to="/home">
           <img className="me-3" style ={{height: "50px", width: "50px"}}
           alt = ""
           src = "https://static.vecteezy.com/system/resources/previews/026/590/504/non_2x/crm-logo-design-inspiration-for-a-unique-identity-modern-elegance-and-creative-design-watermark-your-success-with-the-striking-this-logo-vector.jpg"/>
@@ -39,7 +39,7 @@ const Header = ({search, setSearch}) => {
              
 
               <li className="nav-item">
-                <NavLink className="nav-link" to="/">
+                <NavLink className="nav-link" to="/home">
                   <img className = "img-fluid" style ={{height: "35px", objectFit: "cover"}}
                   src = "https://www.pngkey.com/png/full/357-3576760_digital-dashboards-bi-dashboard-icon-png-flat.png"/>
                 </NavLink>
