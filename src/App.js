@@ -18,6 +18,8 @@ import { AddLeadProvider } from "./contexts/AddLeadContext.js";
 import { SalesAgentListProvider } from "./contexts/SalesAgentListContext.js";
 import { ReportsProvider } from "./contexts/ReportsContext.js";
 import { SettingsProvider } from "./contexts/SettingsContext.js";
+import Login from "./components/Login.jsx";                 
+import OAuthSuccess from "./components/OAuthSuccess.js";     
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
             theme="light"
           />
       <Routes>
+        <Route path="/login" element={<Login />} />                   
+        <Route path="/oauth-success" element={<OAuthSuccess />} />     
         <Route path="/" element={<HomePage />} />
         <Route path = "/leadList" element = {
           <LeadListProvider>

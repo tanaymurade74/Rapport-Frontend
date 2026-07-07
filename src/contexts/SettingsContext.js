@@ -46,6 +46,8 @@ export function SettingsProvider({children}){
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+
         },
       });
 
@@ -74,6 +76,8 @@ export function SettingsProvider({children}){
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+           Authorization: `Bearer ${localStorage.getItem("token")}`,
+
         },
       });
 

@@ -89,7 +89,8 @@ console.log(name);
       const response = await fetch(apiUrl , {
         method: rest,
         headers: {
-            "Content-Type" : "application/json"
+            "Content-Type" : "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify(payload)
       });
