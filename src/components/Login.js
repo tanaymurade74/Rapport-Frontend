@@ -24,7 +24,7 @@ const navigate = useNavigate();
             <div className="card-body text-center p-5">
               <h1 className="fw-bold mb-1 fst-italic text-danger">Rapport</h1>
               <p className="text-secondary mb-4">
-                Customer relationships.<br />Tracked and closed.
+                Maintaining Customer relationships.<br />
               </p>
               <button
                 onClick={handleLogin}
