@@ -193,8 +193,10 @@ className="btn btn-primary col-12 col-md-auto"
                     <br />
                 </div>
             ) : (
-                <div className="text-center">
-                    <img className = "img-fluid"src="https://imgs.search.brave.com/4nrw7cKJJ00s2vdt_EmlcBgbhgjVuIzpKHeFO4zmdNk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzAwLzg5LzM4LzM2/LzM2MF9GXzg5Mzgz/NjA3X1dQUXRxOU5G/MU8yVnZvdTdDVDFX/Z2pDdFFvb2VYVmp1/LmpwZw" alt="No comments" />
+                <div className="text-center text-muted py-5">
+                    <i className="bi bi-chat-left-dots" style={{ fontSize: "2.5rem" }}></i>
+                    <h6 className="mt-3 mb-1">No comments yet</h6>
+                    <p className="small mb-0">Be the first to add one.</p>
                 </div>
             )}
 

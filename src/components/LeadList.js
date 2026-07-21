@@ -139,10 +139,10 @@ const LeadList = () => {
                     </div>
                     : 
                     <div>
-                    { !loading && <div>
-                        <img className="img-fluid" 
-                        alt = ""
-                        style ={{height: "35rem", width: "45rem"}} src = "https://cdn2.hubspot.net/hubfs/190063/get-more-leads-2015.jpg"/>
+                    { !loading && <div className="text-center text-muted py-5">
+                        <i className="bi bi-people" style={{ fontSize: "2.5rem" }}></i>
+                        <h6 className="mt-3 mb-1">No leads found</h6>
+                        <p className="small mb-0">Add a lead or adjust your filters.</p>
                     </div>
                     }
                     </div>
