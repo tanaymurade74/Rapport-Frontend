@@ -75,7 +75,7 @@ const SalesAgentList = () => {
           {/* <h1 className="text-center">Sales Agents</h1> */}
           <div className="row">
             {listAgent.map((agent) => (
-              <div className="col-md-6">
+              <div key={agent._id} className="col-md-6">
                 <div className="card p-3 mt-4">
                   <p>
                     <strong>Name: </strong> {agent.name}
@@ -90,15 +90,17 @@ const SalesAgentList = () => {
           </div>
           </div>
        ): (
-        ""
+        !loading && !error && <div className="text-center text-muted py-5">
+          <i className="bi bi-people" style={{ fontSize: "2.5rem" }}></i>
+          <h6 className="mt-3 mb-1">No sales agents yet</h6>
+          <p className="small mb-0">Add your first agent using the form above.</p>
+        </div>
       )}
       </main>
       <Footer/>
 
     </div>
   );
-
-  return <></>;
 };
 
 export default SalesAgentList;

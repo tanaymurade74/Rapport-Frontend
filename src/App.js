@@ -21,6 +21,7 @@ import { ReportsProvider } from "./contexts/ReportsContext.js";
 import { SettingsProvider } from "./contexts/SettingsContext.js";
 import Login from "./components/Login.js";                 
 import OAuthSuccess from "./components/OAuthSuccess.js";     
+import Landing from "./components/Landing.js";
 
 function App() {
   return (
@@ -38,7 +39,8 @@ function App() {
             theme="light"
           />
       <Routes>
-        <Route path="/" element={<Login />} />                   
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/oauth-success" element={<OAuthSuccess />} />     
         <Route path="/home" element={<HomePage />} />
         <Route path = "/leadList" element = {

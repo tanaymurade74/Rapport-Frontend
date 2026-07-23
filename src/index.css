@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.option-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.option-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+}
+
+.card {
+  border-color: #e5e7eb;
+}

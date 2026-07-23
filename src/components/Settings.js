@@ -1,88 +1,14 @@
-import { useEffect, useState } from "react";
-import useFetch from "../useFetch";
 import { Link } from "react-router-dom";
 import HeaderWithoutSearch from "../constants/HeaderWithoutSearch";
 import Footer from "../constants/Footer";
-import {toast} from "react-toastify"
 import useSettingsContext from "../contexts/SettingsContext";
 
 const Settings = () => {
     const { allLeads, setAllLeads, allAgents, setAllAgents, activeView, setActiveView, data, salesAgent, getSalesAgent, 
     handleAgentDelete, handleLeadDelete} = useSettingsContext();
     
-//   const [allLeads, setAllLeads] = useState([]);
-//   const [allAgents, setAllAgents] = useState([]);
-//   const [activeView, setActiveView] = useState("leads");
 
-//   const { data} = useFetch(`${process.env.REACT_APP_API_URL}/leads`);
-//   const {
-//     data: salesAgent,
    
-//   } = useFetch(`${process.env.REACT_APP_API_URL}/agents`);
-
-//   useEffect(() => {
-//     if (data && data.Leads && data.Leads.length > 0) {
-//       setAllLeads(data.Leads);
-//     }
-//     if (salesAgent && salesAgent.agents && salesAgent.agents.length > 0) {
-//       setAllAgents(salesAgent.agents);
-//     }
-//   }, [data, salesAgent]);
-
-//   const getSalesAgent = (id) => {
-//     if (salesAgent && salesAgent.agents && salesAgent.agents.length > 0) {
-//       const agent = salesAgent.agents.filter((ag) => ag._id === id);
-//       return agent.length > 0 ? agent[0].name : "Agent Unassigned/Deleted";
-//     }
-//   };
-
-//   const handleLeadDelete = async (leadId) => {
-//     const filteredLeads = allLeads.filter((lead) => lead._id !== leadId);
-//     const toDelete = allLeads.filter(lead => lead._id === leadId);
-//     setAllLeads(filteredLeads);
-
-//     try {
-//       const response = await fetch(`${process.env.REACT_APP_API_URL}/leads/${leadId}`, {
-//         method: "DELETE",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//       });
-
-//       const data = await response.json();
-//       toast.warn(`Lead: ${toDelete[0].name} has been deleted`)
-//     } catch {
-//       toast.error("Error while trying to delete lead.");
-//     }
-//   };
-
-//   const handleAgentDelete = async (agentId) => {
-//     const leads = allLeads.map((lead) => {
-//       if (lead.salesAgent === agentId) {
-//         return { ...lead, salesAgent: null };
-//       }
-//       return lead;
-//     });
-
-//     setAllLeads(leads);
-
-//     const filteredAgents = allAgents.filter((ag) => ag._id !== agentId);
-//     setAllAgents(filteredAgents);
-
-//     try {
-//       const response = await fetch(`${process.env.REACT_APP_API_URL}/agents/${agentId}`, {
-//         method: "DELETE",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//       });
-
-//        await response.json();
-//       toast.warn(`Agent ${getSalesAgent(agentId)} has been deleted` )
-//     } catch {
-//       toast.error("Error while trying to delete agent");
-//     }
-//   };
 
   return (
     <div className="d-flex flex-column min-vh-100">
@@ -105,37 +31,34 @@ const Settings = () => {
             </div>
           </div>
 
-          <div className="d-flex justify-content-center flex-wrap">
-            <button
-              type="button"
-              className={`btn ${
-                activeView === "leads" ? "btn-primary" : "btn-light"
-              } border-dark`}
-              onClick={() => setActiveView("leads")}
-            >
-              Manage Leads
-            </button>
-
-            <button
-              type="button"
-              className={`btn ${
-                activeView === "agents" ? "btn-primary" : "btn-light"
-              } ms-3 border-dark`}
-              onClick={() => setActiveView("agents")}
-            >
-              Manage Agents
-            </button>
+          <div className="d-flex justify-content-center">
+            <div className="btn-group" role="group" aria-label="Settings view">
+              <button
+                type="button"
+                className={`btn btn-sm ${activeView === "leads" ? "btn-primary" : "btn-outline-primary"}`}
+                onClick={() => setActiveView("leads")}
+              >
+                Manage Leads
+              </button>
+              <button
+                type="button"
+                className={`btn btn-sm ${activeView === "agents" ? "btn-primary" : "btn-outline-primary"}`}
+                onClick={() => setActiveView("agents")}
+              >
+                Manage Agents
+              </button>
+            </div>
           </div>
 
           <br />
           <hr />
 
-          {activeView === "leads" && allLeads.length > 0 ? (
+          {activeView === "leads" && (allLeads.length > 0 ? (
             <div className="text-center">
               <h1 className="text-center mt-3">Manage Leads</h1>
               <div className="row">
                 {allLeads.map((lead) => (
-                  <div className="col-md-4">
+                  <div key={lead._id} className="col-md-4">
                     <Link
                       className="text-decoration-none"
                       to={`/lead/${lead._id}`}
@@ -164,8 +87,8 @@ const Settings = () => {
                       </div>
                     </Link>
                     <button
-                      className="btn btn-danger mt-2 form-control"
-                      onClick={() => handleLeadDelete(`${lead._id}`)}
+                      className="btn btn-sm btn-outline-danger mt-2 w-100"
+                      onClick={() => window.confirm(`Delete lead "${lead.name}"?`) && handleLeadDelete(`${lead._id}`)}
                     >
                       Delete Lead
                     </button>
@@ -174,15 +97,20 @@ const Settings = () => {
               </div>
             </div>
           ) : (
-            ""
-          )}
+            <div className="text-center text-muted py-5">
+              <i className="bi bi-person-lines-fill" style={{ fontSize: "2.5rem" }}></i>
+              <h6 className="mt-3 mb-1">No leads to manage</h6>
+              <p className="small mb-3">Create a lead and it will show up here.</p>
+              <Link className="btn btn-sm btn-primary" to="/addLead" state={{ state: "add" }}>Add New Lead</Link>
+            </div>
+          ))}
 
-          {activeView === "agents" && allAgents.length > 0 ? (
+          {activeView === "agents" && (allAgents.length > 0 ? (
             <div>
               <h1 className="text-center">Manage Sales Agent</h1>
               <div className="row">
                 {allAgents.map((agent) => (
-                  <div className="col-md-4">
+                  <div key={agent._id} className="col-md-4">
                     {/* <Link className="text-decoration-none" to = {`/agent/${agent._id}`}> */}
                     <div className="card p-3 mt-4">
                       <p>
@@ -196,8 +124,8 @@ const Settings = () => {
                     </div>
                     {/* </Link> */}
                     <button
-                      className="btn btn-danger form-control mt-2"
-                      onClick={() => handleAgentDelete(`${agent._id}`)}
+                      className="btn btn-sm btn-outline-danger mt-2 w-100"
+                      onClick={() => window.confirm(`Delete agent "${agent.name}"?`) && handleAgentDelete(`${agent._id}`)}
                     >
                       Delete Agent
                     </button>
@@ -206,8 +134,13 @@ const Settings = () => {
               </div>
             </div>
           ) : (
-            ""
-          )}
+            <div className="text-center text-muted py-5">
+              <i className="bi bi-people" style={{ fontSize: "2.5rem" }}></i>
+              <h6 className="mt-3 mb-1">No agents to manage</h6>
+              <p className="small mb-3">Add an agent and it will show up here.</p>
+              <Link className="btn btn-sm btn-primary" to="/salesAgentList">Add Sales Agent</Link>
+            </div>
+          ))}
         </div>
       </main>
       <Footer />

@@ -1,5 +1,5 @@
 import useFetch from "../useFetch";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import HeaderWithoutSearch from "../constants/HeaderWithoutSearch";
 import Footer from "../constants/Footer";
@@ -12,12 +12,20 @@ const LeadManagement = () => {
     , commentText, setCommentText, commentAdded, setCommentAdded, localComment, setLocalComments
     , sortOrder, setSortOrder, data, loading, error, comment, salesAgent, sortedComments, getSalesAgent, handleSubmit} = useLeadManagementContext();
 
+  const navigate = useNavigate();
+
 
   return (
     <div className="d-flex flex-column min-vh-100">
       <HeaderWithoutSearch />
       
       <main className="flex-grow-1 container mt-5">
+        <div className="mb-3">
+          <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => navigate(-1)}>
+            <i className="bi bi-arrow-left me-1"></i>Back
+          </button>
+        </div>
+
         {loading && (
           <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "300px" }}>
             <div className="spinner-border text-primary" role="status"><span className="visually-hidden">Loading...</span></div>
@@ -138,13 +146,17 @@ className="btn btn-primary col-12 col-md-auto"
                                         onChange={(e) => setAuthor(e.target.value)}
                                     >
                                         {salesAgent.agents.map((agent) => (
-                                            <option value={`${agent._id}`}>
+                                            <option key={agent._id} value={`${agent._id}`}>
                                                 {agent.name}
                                             </option>
                                         ))}
                                     </select>
                                 </div>
-                            ) : ""}
+                            ) : (
+                                <div className="alert alert-warning py-2 px-3 small mb-0">
+                                    Add a sales agent before commenting.
+                                </div>
+                            )}
                         </div>
 
 

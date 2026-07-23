@@ -1,11 +1,9 @@
-
-
-
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { useEffect, useState } from "react";
 import useFetch from "../useFetch";
 import { Pie, Bar } from "react-chartjs-2";
+import { Link } from "react-router-dom";
 import Footer from "../constants/Footer";
 import HeaderWithoutSearch from "../constants/HeaderWithoutSearch";
 import useReportsContext from "../contexts/ReportsContext";
@@ -44,6 +42,7 @@ const Reports = () => {
                 </div>
               )}
         
+      {!loading && <>
       <h1 className="text-center mb-4">Report Overview</h1>
 
       <div className="row mb-4 text-center">
@@ -67,30 +66,30 @@ const Reports = () => {
         </div>
       </div>
 
-      <div className="d-flex justify-content-center mb-4 flex-wrap mt-3">
-        {/* <div className="btn-group" role="group"> */}
+      <div className="d-flex justify-content-center mb-4 mt-3">
+        <div className="btn-group" role="group" aria-label="Report view">
           <button
             type="button"
-            className={`btn ${activeView === "status" ? "btn-primary" : "btn-outline-primary"} mt-3`}
+            className={`btn btn-sm ${activeView === "status" ? "btn-primary" : "btn-outline-primary"}`}
             onClick={() => setActiveView("status")}
           >
             Status Distribution
           </button>
           <button
             type="button"
-            className={`btn ${activeView === "pipeline" ? "btn-primary" : "btn-outline-primary" } ms-3 mt-3`}
+            className={`btn btn-sm ${activeView === "pipeline" ? "btn-primary" : "btn-outline-primary"}`}
             onClick={() => setActiveView("pipeline")}
           >
             Pipeline Ratio
           </button>
           <button
             type="button"
-            className={`btn ${activeView === "agent" ? "btn-primary" : "btn-outline-primary"} ms-3 mt-3`}
+            className={`btn btn-sm ${activeView === "agent" ? "btn-primary" : "btn-outline-primary"}`}
             onClick={() => setActiveView("agent")}
           >
             Agent Performance
           </button>
-        {/* </div> */}
+        </div>
       </div>
 
       {/* <div className="card p-4 " > */}
@@ -141,6 +140,15 @@ const Reports = () => {
           </div>
         )}
 
+        {totalLeads === 0 && (
+          <div className="text-center text-muted py-5">
+            <i className="bi bi-bar-chart" style={{ fontSize: "2.5rem" }}></i>
+            <h6 className="mt-3 mb-1">Nothing to report yet</h6>
+            <p className="small mb-3">Add some leads and your charts will appear here.</p>
+            <Link className="btn btn-sm btn-primary" to="/addLead" state={{ state: "add" }}>Add New Lead</Link>
+          </div>
+        )}
+
         {activeView === "agent" && salesAgentClosed && (
           <div className="chart-wrapper mt-4"
         style={{width: "100%", height: "600px", margin: "0 auto" }}>
@@ -161,7 +169,7 @@ const Reports = () => {
           />
           </div>
         )}
-        
+      </>}
       </div>
     {/* // </div> */}
     </main>

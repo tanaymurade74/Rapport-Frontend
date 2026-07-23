@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useFetch from "../useFetch";
 import { useEffect } from "react";
 import Footer from "../constants/Footer";
@@ -13,12 +13,19 @@ const {name, setName, source, setSource, salesAgent, setSalesAgent
     , status, setStatus, priority, setPriority, timeToClose, setTimeToClose, tags, setTags, tag, agent, 
     getSalesAgent, handleTagChange, handleSubmit, isEditMode} = useAddLeadContext();
 
+  const navigate = useNavigate();
+
   return (
         <div className="d-flex flex-column min-vh-100">
 
     <HeaderWithoutSearch/>
     <main className="flex-grow-1 container">
     <div className="container text-center">
+      <div className="text-start mb-2">
+        <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => navigate(-1)}>
+          <i className="bi bi-arrow-left me-1"></i>Back
+        </button>
+      </div>
       <h1>{isEditMode? `Edit Lead` : `Add Lead`}</h1>
       <div className="card shadow-sm p-4">
   <form onSubmit={handleSubmit} className="row g-3">
@@ -65,6 +72,10 @@ const {name, setName, source, setSource, salesAgent, setSalesAgent
             </option>
           ))}
         </select>
+      ) : agent ? (
+        <div className="alert alert-warning py-2 px-3 small mb-0 text-start">
+          No sales agents yet. <Link to="/salesAgentList">Add an agent</Link> before creating a lead.
+        </div>
       ) : (
         <select className="form-select" disabled>
           <option>Loading Agents...</option>
@@ -139,7 +150,7 @@ const {name, setName, source, setSource, salesAgent, setSalesAgent
     </div>
 
     <div className="col-12 mt-4">
-      <button type="submit" className="btn btn-primary w-100 py-2 fw-bold">
+      <button type="submit" className="btn btn-primary w-100 py-2 fw-bold" disabled={agent && agent.agents.length === 0}>
         {isEditMode ? "Update Lead" : "Add New Lead"}
       </button>
     </div>

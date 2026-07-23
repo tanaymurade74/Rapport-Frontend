@@ -1,6 +1,5 @@
-
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
 
@@ -18,6 +17,9 @@ const navigate = useNavigate();
 
   return (
     <div className="container position-relative">
+      <Link className="btn btn-sm btn-outline-secondary position-absolute top-0 start-0 mt-3" to="/">
+        <i className="bi bi-arrow-left me-1"></i>Back
+      </Link>
       <div className="row justify-content-center align-items-center min-vh-100">
         <div className="col-11 col-sm-9 col-md-6 col-lg-4">
           <div className="card border-0 shadow-lg rounded-4">
